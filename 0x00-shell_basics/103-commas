@@ -1,0 +1,2 @@
+#!/bin/bash
+ls -Fa --file-type --format=commas
