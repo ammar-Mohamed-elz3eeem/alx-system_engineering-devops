@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# clock script
+hs=0
+while [ "$hs" -le 12 ]; do
+	echo "Hour: $hs"
+	mi=1
+	while [ "$mi" -lt 60 ]; do
+		echo "$mi";
+		((mi++))
+	done;
+	((hs++))
+done;
