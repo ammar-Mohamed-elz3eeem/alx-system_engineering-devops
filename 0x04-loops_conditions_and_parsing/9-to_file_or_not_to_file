@@ -2,6 +2,7 @@
 # script to give info about school file
 file="school"
 if [[ -e $file ]]; then
+	echo "school file exists"
 	if [[ -f $file ]]; then
 		echo "school is a regular file";
 	fi;
