@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# script to show use group and user_id and username from /etc/passwd
+file=/etc/passwd
+while read -r line;
+do
+	echo "$line" | cut -d ':' -f 1,3,6
+done < "$file";
