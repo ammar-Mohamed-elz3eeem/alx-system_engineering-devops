@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# this script to print process PID
+sleep 0 &
+echo "$!";
