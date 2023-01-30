@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# daemon for starting, stopping and restarting my proccess
+PID_FILE="/var/run/my_process.pid"
+if [[ "$1" == "start" ]]; then
+	bash ./manage_my_process &
+	echo "$!" > $PID_FILE;
+	echo "manage_my_process started";
+elif [[ "$1" == "stop" ]]; then
+	[ -e $PID_FILE ] && pkill -f './manage_my_process' && rm $PID_FILE;
+	echo "manage_my_process stopped";
+elif [[ "$1" == "restart" ]]; then
+	[ -e $PID_FILE ] && pkill -f './manage_my_process' && rm $PID_FILE;
+	touch $PID_FILE;
+	bash ./manage_my_process & echo "$!" > $PID_FILE;
+	echo "manage_my_process restarted";
+else
+	echo "Usage: manage_my_process {start|stop|restart}";
+	exit;
+fi;
