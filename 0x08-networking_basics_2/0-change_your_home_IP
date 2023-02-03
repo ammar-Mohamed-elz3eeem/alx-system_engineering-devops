@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# script to add to localhost addresses
+
+cp /etc/hosts ~/hosts.new
+echo "127.0.0.2		localhost" > /home/hosts.new
+echo "8.8.8.8		facebook.com" > /home/hosts.new
+cp -f ~/hosts.new /etc/hosts
