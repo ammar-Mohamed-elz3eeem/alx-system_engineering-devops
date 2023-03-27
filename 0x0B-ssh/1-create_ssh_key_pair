@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Create new ssh public & private key with passshare and should be named school
+ssh-keygen -f school -N betty -b 4096
