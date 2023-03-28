@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# install nginx on the server
+# allow the nginx http to be used
+# give the current user the permission to change file content
+# add error_page to server and also custom redirect link using sed
+# restart nginx server
+
+sudo apt update -y -qq && \
+	sudo apt-get install nginx -y;
+
+sudo service nginx start;
+
+sudo ufw allow 'Nginx HTTP';
+
+sudo chown -R "$USER":"$USER" /var/www/;
+sudo chmod -R 755 /var/www/;
+
+sed -i '10i\	\n\n\terror_page 404 \/err404.html;\n' /etc/nginx/sites-enabled/default;
+
+echo "Ceci n'est pas une page" | dd status=none of='/var/www/html/err404.html'
+
+sed -i '14i\	\n\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;\n\t}' /etc/nginx/sites-enabled/default;
+
+echo "Hello World!" | dd status=none of='/var/www/html/index.nginx-debian.html';
+
+sudo service nginx restart;
