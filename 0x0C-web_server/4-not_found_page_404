@@ -8,19 +8,15 @@
 sudo apt update -y -qq && \
 	sudo apt-get install nginx -y;
 
-sudo service nginx start;
-
 sudo ufw allow 'Nginx HTTP';
-
+sudo service nginx start;
 sudo chown -R "$USER":"$USER" /var/www/;
 sudo chmod -R 755 /var/www/;
 
 sed -i '24i\	error_page 404 \/err404.html;' /etc/nginx/sites-enabled/default;
+sed -i '25i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-enabled/default;
 
 echo "Ceci n'est pas une page" | dd status=none of='/var/www/html/err404.html'
-
-sed -i '25i\	location \/redirect_me {return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;}' /etc/nginx/sites-enabled/default;
-
 echo "Hello World!" | dd status=none of='/var/www/html/index.nginx-debian.html';
 
 sudo service nginx restart;
