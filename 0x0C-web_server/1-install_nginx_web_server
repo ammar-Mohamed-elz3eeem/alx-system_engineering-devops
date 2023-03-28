@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This script will create server using nginx
 
-sudo apt update;
-sudo apt-get -y install nginx;
+apt update;
+apt-get install -y nginx;
 echo "Hello World!" > /var/www/html/index.nginx-debian.html;
 service nginx restart;
