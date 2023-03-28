@@ -5,21 +5,21 @@
 # add error_page to server and also custom redirect link using sed
 # restart nginx server
 
-sudo apt update -y -qq && \
-	sudo apt-get install nginx -y;
+sudo apt-get update -y -qq && \
+	sudo apt-get install nginx -y
 
-sudo service nginx start;
+sudo service nginx start
 
-sudo ufw allow 'Nginx HTTP';
+sudo ufw allow 'Nginx HTTP'
 
-sudo chown -R "$USER":"$USER" /var/www/html;
-sudo chmod -R 755 /var/www/;
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-echo -e "Hello World!" | dd status=none of='/var/www/html/index.nginx-debian.html';
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
 
-sed -i '25i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-enabled/default;
+sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default;
 
 echo -e "Ceci n'est pas une page\n" > /var/www/html/error_404.html;
-sed -i '24i\	error_page 404 \/error_404.html;' /etc/nginx/sites-enabled/default;
+sed -i '24i\	error_page 404 \/error_404.html;' /etc/nginx/sites-available/default;
 
 sudo service nginx restart;
