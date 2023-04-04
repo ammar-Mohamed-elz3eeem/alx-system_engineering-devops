@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Create Server with header inserted into it
+
+sudo apt-get update -y -qq && \
+	sudo apt-get install nginx -y
+
+sudo service nginx start
+
+sudo ufw allow 'Nginx HTTP'
+
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+service_con=\
+"server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+	server_name _;
+
+	add_header X-Served-By \$hostname
+	
+	location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files \$uri \$uri/ =404;
+        }
+
+	rewrite ^/redirect_me$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+
+	error_page 404 /error_404.html
+
+	location = /error_404.html {
+		internal;
+	}
+}"
+
+echo "$service_con" > /etc/nginx/sites-available/default
+
+echo -e "Ceci n'est pas une page" > /var/www/html/error_404.html;
+
+sudo service nginx restart;
