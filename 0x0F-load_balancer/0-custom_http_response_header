@@ -3,7 +3,7 @@
 
 function install () {
 	command -v "$1" &> /dev/null
-	if [[ $? -eq 0 ]]; then
+	if [[ $? -ne 0 ]]; then
 		sudo apt-get update -y -qq && \
 		sudo apt-get install nginx -y
 	fi
@@ -40,7 +40,7 @@ service_con=\
 	root /var/www/html;
 	server_name _;
 
-	add_header X-Served-By \$hostname
+	add_header X-Served-By \$hostname;
 	
 	location / {
                 # First attempt to serve request as file, then
@@ -50,13 +50,13 @@ service_con=\
 
 	rewrite ^/redirect_me$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
 
-	error_page 404 /error_404.html
+	error_page 404 /error_404.html;
 
 	location = /error_404.html {
 		internal;
 	}
 }"
 
-echo "$service_con" > /etc/nginx/sites-enabled/default
+echo "$service_con" | sudo dd status=none of='/etc/nginx/sites-enabled/default'
 
 sudo service nginx restart;
