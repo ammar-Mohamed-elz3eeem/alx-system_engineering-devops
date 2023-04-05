@@ -19,12 +19,12 @@ exec { 'redirect_me command':
   provider => 'shell'
 }
 
-exec { 'redirect_me command':
+exec { 'add header':
   command  => 'sed -i "25i\    add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
   provider => 'shell'
 }
 
-package { 'nginx':
+service { 'nginx':
   ensure  => running,
-  require => package['nginx']
+  require => Package['nginx']
 }
