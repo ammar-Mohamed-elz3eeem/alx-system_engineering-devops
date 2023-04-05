@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# automation script for building load balancer 
+# using HAProxy with roundrobin algorithm
+
+function install() {
+	command -v "$1";
+
+	if [[ $? -ne 0 ]]; then
+		sudo apt-get update -y -qq && \
+		sudo apt-get install -y "$1"
+	fi
+}
+
+install haproxy
+
+proxy_config="\
+defaults
+	mode http
+	timeout connect 30s
+	timeout server 30s
+	timeout client 30s
+	timeout http-request 15s
+frontend ammar_frontend
+	bind *:80
+	default_backend ammar_backend
+backend ammar_backend
+	balance roundrobin
+	server 121379-web-01 52.91.153.115:80 check
+	server 121379-web-02 52.91.202.178:80 check
+"
+
+echo "$proxy_config" | sudo dd status=none of='/etc/haproxy/haproxy.cfg'
+
+echo "ENABLED=1" | sudo dd status=none of='/etc/default/haproxy'
+
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	sudo service haproxy start
+else
+	sudo service haproxy restart
+fi;
