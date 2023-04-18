@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script will print the current user using the shell
+# if no user given as argument it will show root user
+sudo -u "$1" whoami
