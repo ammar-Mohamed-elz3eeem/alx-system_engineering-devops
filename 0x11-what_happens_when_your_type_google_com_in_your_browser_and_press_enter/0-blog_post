@@ -1,0 +1,28 @@
+Loading a webpage is a multi-step and complex process that requires various components to work together seamlessly. Starting with the DNS request and ending with database retrieval, each step is crucial to ensure fast and secure content delivery to users. For software engineers, it is imperative to have an in-depth comprehension of each component and how they integrate to develop top-notch web applications. By mastering these skills, software engineers can design web applications that are faster, more dependable, and more secure, catering to the requirements of both users and businesses
+In the modern interconnected world, the internet serves as the foundation for most businesses and organizations. Having a grasp of how the web stack operates on top of the internet is vital for software engineering roles, particularly those in front-end and SRE positions. This report will explore the different components that come into play when you enter https://www.google.com in your browser and hit Enter, such as DNS request, TCP/IP connection setup, firewall security, HTTPS/SSL encryption, load-balancing distribution, web server processing, application server execution, and database retrieval.
+DNS Request
+when you type https://www.google.com into browser tab the first thing that happen is a request sent to DNS server to translate this into valid IP that browser will use to connect with the server that has that IP address 
+TCP/IP Connection
+the browser then use the IP address and connect to the server by initiates a new Transmission control protocol/Internet Protocol to the server, This is a connection-oriented protocol and also ensures that all data are transmitted correctly 
+Firewall Security
+Before the TCP/IP establish the connection, data go through a security device that examines all incoming and outgoing requests to allow or block trafic based on predefined rules
+HTTPS/SSL Encryption:
+when TCP/IP connection is established, the browser and server starts communicating over SSL Connection, what does that mean ?
+it means that all the data that are exchanged between the browser and server are encrypted using https ( HyperText Transfer Protocol Secure ) and with the help of SSL ( Secure Sockets Layer ) the data can be safely exchanged in encrypted form 
+Load Balancing
+if the server we are trying to connect to ( in this example google server ) is part of distributed system, there may be a load balancer that connects to the server ip you are trying to connect to, but what is the role of this load balancer ? 
+Load balancer distributes the incoming request between servers to improve the performance and prevent overloading on server
+Load balancer receive the request you are sending to server and send it to the available server
+Web server
+finally request arrive to server :), now what happen when request arrive to the available server ? 
+once server receive the request from load balancer it is processed using software called web server software (Apache, Nginx)
+The web server retrieves the requested resources (HTML. CSS, JavaScript) from the System (or cache if this files are cached before) and generate an HTTP response and send them back to the client (browser)
+Application server
+in some cases the website you are trying to connect to have dynamic content (such as PHP, Node.js, etc...) scripts so in this case we need application server to execute these server-side scripts and process the request and generate an HTTP response send it back to browser 
+Database:
+if the webpage you are trying to view (https://www.google.com) requires data from database the application server will communicate with the database dialect and give him the query or statement that needs to be executed on the database side, then Database processes the request and send response back to the application server with the result of the query or statement, then application server generate HTTP response with the data and send it to web server which sends that back to browser 
+Conclusion:
+To sum up, entering https://www.google.com in your browser and hitting Enter entails multiple crucial components that collaborate to deliver the desired content swiftly and securely
+With a comprehensive understanding of how these components integrate, software engineers can develop web applications that are more efficient and secure.
+
+
