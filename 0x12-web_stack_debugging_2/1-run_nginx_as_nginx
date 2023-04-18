@@ -2,8 +2,7 @@
 # give all rights to user nginx and make him
 # the only one who can edit nginx configuration
 pkill apache2
-sudo sed -i 's/80 default_server/8080 default_server/' \
-	/etc/nginx/sites-available/default
+sed -i 's/80 default_server/8080 default_server/' /etc/nginx/sites-available/default
 chown nginx:nginx /etc/nginx/nginx.conf
 chmod 700 /etc/nginx/nginx.conf
 service nginx reload
