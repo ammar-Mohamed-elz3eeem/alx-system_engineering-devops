@@ -3,7 +3,7 @@
 # the only one who can edit nginx configuration
 pkill apache2
 sed -i 's/80/8080/g' /etc/nginx/sites-available/default
-chown nginx:nginx /etc/nginx/nginx.conf
-chmod 700 /etc/nginx/nginx.conf
+sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
+chmod 644 /etc/nginx/nginx.conf
 service nginx reload
 service nginx restart
