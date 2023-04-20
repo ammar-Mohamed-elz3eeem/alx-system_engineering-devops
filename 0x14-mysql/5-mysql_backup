@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# script to create backop of my database server
+mysqldump --all-databases --password="$1" --user=root > backup.sql
+tar -cvzf "$(date +%d-%m-%Y)".tar.gz backup.sql
