@@ -5,6 +5,7 @@ module to save employees tasks in .csv file format
 import json
 from sys import argv
 import urllib.request
+import csv
 
 
 def get_emp(empid=None):
@@ -29,12 +30,8 @@ if __name__ == "__main__":
     empid = int(argv[1])
     empinfo = get_emp(empid)
     emptodos = get_emp_tasks(empid)
-    file = open("{}.csv".format(empid), "a+")
-    data = list(map(lambda x: file.write(
-        "\"{}\",\"{}\",\"{}\",\"{}\"\n"
-        .format(
-            x["userId"],
-            empinfo["username"],
-            str(x["completed"]),
-            x["title"]
-        )), emptodos))
+    with open("{}.csv".format(empid), "w", newline="") as fd:
+        writer = csv.writer(fd, quoting=csv.QUOTE_ALL)
+        [writer.writerow([row["userId"],
+                          empinfo["username"], row["completed"], row["title"]])
+         for row in emptodos]
