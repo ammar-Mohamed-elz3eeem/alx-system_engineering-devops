@@ -2,36 +2,19 @@
 """
 module to save employees tasks in .csv file format
 """
-import json
-from sys import argv
-import urllib.request
 import csv
-
-
-def get_emp(empid=None):
-    if isinstance(empid, int):
-        fd = urllib.request.urlopen(
-            "https://jsonplaceholder.typicode.com/users/{}"
-            .format(empid))
-        with fd:
-            return json.loads(fd.read())
-
-
-def get_emp_tasks(empid=None):
-    if isinstance(empid, int):
-        fd = urllib.request.urlopen(
-            "https://jsonplaceholder.typicode.com/users\
-/{}/todos".format(empid))
-        with fd:
-            return json.loads(fd.read())
+import json
+from requests import get
+from sys import argv
 
 
 if __name__ == "__main__":
     empid = int(argv[1])
-    empinfo = get_emp(empid)
-    emptodos = get_emp_tasks(empid)
+    url = "https://jsonplaceholder.typicode.com/"
+    empinfo = get("{}users/{}".format(url, empid)).json()
+    emptodos = get("{}todos".format(url), {"userId":empid}).json()
     with open("{}.csv".format(empid), "w", newline="") as fd:
         writer = csv.writer(fd, quoting=csv.QUOTE_ALL)
-        [writer.writerow([row["userId"],
-                          empinfo["username"], row["completed"], row["title"]])
+        [writer.writerow([row.get("userId"),
+                          empinfo.get("username"), row.get("completed"), row.get("title")])
          for row in emptodos]
