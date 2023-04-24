@@ -35,6 +35,6 @@ if __name__ == "__main__":
         .format(
             x["userId"],
             empinfo["username"],
-            str(x["completed"]).capitalize(),
+            str(x["completed"]),
             x["title"]
         )), emptodos))
