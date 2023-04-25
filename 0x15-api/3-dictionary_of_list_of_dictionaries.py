@@ -12,9 +12,10 @@ if __name__ == "__main__":
     users = get("{}/users".format(url)).json()
     data = dict()
     for u in users:
-        utasks = get("{}/todos".format(url), params={"userId": u.get("id")}).json()
+        utasks = get("{}/todos".format(url),
+                     params={"userId": u.get("id")}).json()
         data[u.get("id")] = [{
-            "username": u.get("username"), 
+            "username": u.get("username"),
             "task": task.get("title"),
             "completed": task.get("completed")
         } for task in utasks]
