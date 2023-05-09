@@ -7,9 +7,11 @@ import requests
 def top_ten(subreddit):
     """return 10 hot posts in subreddit"""
     url = "https://www.reddit.com"
-    res = requests\
-        .get("{}/r/{}/hot.json".format(url, subreddit), {"limit": 10},
-             headers={"User-Agent": "Ammar"}, allow_redirects=False)
+    headers = {"User-Agent": "Ammar"}
+    res = requests.get("{}/r/{}/hot.json".format(url, subreddit),
+            {"limit": 10},
+            headers = headers,
+            allow_redirects = False)
     if res.status_code is not 200:
         print(None)
         return
