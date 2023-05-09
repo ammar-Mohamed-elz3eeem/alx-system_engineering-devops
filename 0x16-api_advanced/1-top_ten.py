@@ -9,9 +9,9 @@ def top_ten(subreddit):
     url = "https://www.reddit.com"
     headers = {"User-Agent": "Ammar"}
     res = requests.get("{}/r/{}/hot.json".format(url, subreddit),
-            {"limit": 10},
-            headers = headers,
-            allow_redirects = False)
+                       {"limit": 10},
+                       headers=headers,
+                       allow_redirects=False)
     if res.status_code is not 200:
         print(None)
         return
