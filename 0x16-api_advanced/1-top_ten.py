@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-"""
-Queries the Reddit API and returns
-the hottest ten posts in subreddit
-"""
+"""Queries the Reddit API and returns
+the hottest ten posts in subreddit"""
 import requests
 
 
 def top_ten(subreddit):
+    """return 10 hot posts in subreddit"""
     if subreddit is None or type(subreddit) is not str:
         print(None)
         return
