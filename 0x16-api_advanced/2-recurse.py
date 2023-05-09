@@ -1,24 +1,27 @@
 #!/usr/bin/python3
-"""
-Queries the Reddit API and returns
-all hot posts in subreddit
-"""
+"""Query in subreddit recursivly"""
 import requests
 
 
-def recurse(subreddit, hot_list=[]):
+def recurse(subreddit, hot_list=[], after="", count=0):
     """return all hot posts in subreddit recursively"""
-    url = "https://www.reddit.com"
-    headers = {"User-Agent": "Ammar"}
-    res = requests.get("{}/r/{}/hot.json".format(url, subreddit),
-                       {"limit": 10, "after": len(hot_list)},
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    headers = {"User-Agent": "Mero"}
+    params = {
+        "after": after,
+        "count": count,
+        "limit": 100
+    }
+    res = requests.get(url,
+                       params=params,
                        headers=headers,
                        allow_redirects=False)
     if res.status_code != 200:
-        print(None)
-        return
-    posts = res.json().get("data", {}).get("children", [])
-    if len(posts) > 0:
-        return recurse(subreddit, hot_list + posts)
-    else:
-        return posts
+        return None
+    data = res.json().get("data", {})
+    count += data.get("dist", 0)
+    after = data.get("after")
+    posts = data.get("children", [])
+    if after is not None:
+        return recurse(subreddit, hot_list+posts, after, count)
+    return hot_list
