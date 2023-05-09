@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""Queries the Reddit API and returns
-the hottest ten posts in subreddit"""
+"""
+Queries the Reddit API and returns
+all hot posts in subreddit
+"""
 import requests
 
 
