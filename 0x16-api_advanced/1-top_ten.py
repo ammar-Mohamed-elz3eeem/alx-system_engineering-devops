@@ -13,6 +13,6 @@ def top_ten(subreddit):
     url = "https://www.reddit.com"
     posts = requests\
         .get("{}/r/{}/hot.json".format(url, subreddit), {"limit": 10},
-             headers={"User-Agent": "Ammar"})\
+             headers={"User-Agent": "Ammar"}, allow_redirects=False)\
         .json().get("data", {}).get("children", [])
     [print(post.get("data", {}).get("title")) for post in posts]
