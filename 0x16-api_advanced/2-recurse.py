@@ -25,7 +25,7 @@ def recurse(subreddit, hot_list=[], after="", count=0):
 
     for post in posts:
         hot_list.append(post)
-    
+
     if after is not None:
         return recurse(subreddit, hot_list, after, count)
     return hot_list
