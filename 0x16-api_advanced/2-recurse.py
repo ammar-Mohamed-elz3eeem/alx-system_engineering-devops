@@ -5,7 +5,7 @@ import requests
 
 def recurse(subreddit, hot_list=[], after="", count=0):
     """return all hot posts in subreddit recursively"""
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {"User-Agent": "Mero"}
     params = {
         "after": after,
@@ -22,6 +22,10 @@ def recurse(subreddit, hot_list=[], after="", count=0):
     count += data.get("dist", 0)
     after = data.get("after")
     posts = data.get("children", [])
+
+    for post in posts:
+        hot_list.append(post)
+    
     if after is not None:
-        return recurse(subreddit, hot_list+posts, after, count)
+        return recurse(subreddit, hot_list, after, count)
     return hot_list
