@@ -1,11 +1,13 @@
-# fix nginx request limit
+# increases the amount of traffic an Nginx can recieve.
 
-exec { 'Fix Nginx':
+# fix nginx request limit
+exec { 'fix: for nginx':
   command => 'sed -i "s/15/4096/" /etc/default/nginx',
   path    => '/usr/local/bin/:/bin/'
-}
+} ->
 
-exec { 'restart nginx':
-  command  => 'nginx restart',
-  path     => '/etc/init.d/'
+# Restart Nginx
+exec { 'restart: nginx-restart':
+  command => 'nginx restart',
+  path    => '/etc/init.d/'
 }
