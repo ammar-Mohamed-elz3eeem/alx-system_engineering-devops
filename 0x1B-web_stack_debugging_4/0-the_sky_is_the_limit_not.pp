@@ -1,7 +1,7 @@
 # fix nginx request limit
 
 exec { 'Fix Nginx':
-  command => "sed -i 's/15/4096/' /etc/default/nginx",
+  command => 'sed -i "s/15/4096/" /etc/default/nginx',
   path    => ['/bin', '/usr/local/bin']
 }
 
