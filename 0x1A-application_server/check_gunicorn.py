@@ -8,7 +8,7 @@ server {
         add_header X-Served-By $hostname;
         
         location /airbnb-onepage {
-		proxy_pass http://0.0.0.0:5000/airbnb-onepage
+		proxy-pass http://0.0.0.0:5000/airbnb-onepage
 	}
 
         location / {
