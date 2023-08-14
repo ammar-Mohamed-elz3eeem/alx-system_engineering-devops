@@ -19,6 +19,6 @@ def top_ten(subreddit):
     if (res.status_code == 404):
         print("None")
         return
-    data = res.json().get("data", {}).get("children", [])
-    mapped_data = map(lambda data: data.get("data", {}).get("title", ""), data)
+    data = res.json().get("data").get("children")
+    mapped_data = map(lambda row: row.get("data").get("title"), data)
     [print(row) for row in list(mapped_data)]
