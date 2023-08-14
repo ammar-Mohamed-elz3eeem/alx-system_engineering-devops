@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Get top ten posts in subreddit
 """
