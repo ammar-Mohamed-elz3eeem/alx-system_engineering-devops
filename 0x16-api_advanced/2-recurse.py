@@ -27,4 +27,4 @@ def recurse(subreddit, hot_list=[], after="", count=0):
      for row in results.get("children")]
     if after is not None:
         return recurse(subreddit, hot_list, after, count)
-    return len(hot_list)
+    return hot_list
