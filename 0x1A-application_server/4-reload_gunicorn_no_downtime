@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # Gracefully reloads Gunicorn.
-pgrep gunicorn | awk '{ print $1 }' | xargs kill -HUP
+
+systemctl status gunicorn | grep -oE 'Main PID: [0-9]+' | cut -d ' ' -f3 | xargs kill -HUP
